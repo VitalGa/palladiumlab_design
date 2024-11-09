@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { UiButton } from '../ui/ui_button';
 import { UiLine } from '../ui/ui_line';
 import { buttonStyles } from './constants';
@@ -7,10 +8,17 @@ import Header from './Header';
 import Image from 'next/image';
 
 export default function MainHeader() {
+  const [hoveredItem, setHoveredItem] = useState<string | null>(null);
+
   return (
-    <header className=''>
+    <header
+      className={`relative ${
+        hoveredItem === 'repair'
+          ? "bg-[url('/main_full_screen_1.png')] bg-cover bg-center bg-no-repeat max-w-[1440px] mx-auto"
+          : ''
+      }`}>
       <div className=''>
-        <Header />
+        <Header hoveredItem={hoveredItem} />
       </div>
       <div className='mt-16 min-h-[143px] min-w-[981px] mx-auto'>
         <span className='font-gilroy font-extrabold text-[64px] leading-[74px]'>
@@ -43,11 +51,25 @@ export default function MainHeader() {
           </UiButton>
         </div>
       </div>
-      <div className='relative mt-[84px] w-full max-w-[1440px] mx-auto px-4'>
+      <div className='relative mt-[84px] w-full max-w-[1440px] mx-auto'>
+        <div className='relative h-[344px]'>
+          <Image
+            src='/mini_menu_image.png'
+            alt='Menu background'
+            width={1440}
+            height={344}
+            className={`absolute w-full h-full object-cover transition-opacity duration-300 ${
+              hoveredItem === 'repair' ? 'opacity-0' : 'opacity-100'
+            }`}
+          />
+        </div>
         <div
-          className='absolute top-[200px] w-full grid grid-cols-2 md:grid-cols-4 
+          className='absolute top-[200px] left-0 right-0 grid grid-cols-2 md:grid-cols-4 
           border border-[#FFFFFF] divide-x divide-[#FFFFFF]'>
-          <div className='text-center p-2 md:p-4 flex items-center justify-center'>
+          <div
+            className='text-center p-2 md:p-4 flex items-center justify-center'
+            onMouseEnter={() => setHoveredItem('repair')}
+            onMouseLeave={() => setHoveredItem(null)}>
             <span className='font-gilroy text-base md:text-[20px] font-bold leading-tight md:leading-[24.5px] text-white'>
               Услуги по ремонту
             </span>
@@ -67,15 +89,6 @@ export default function MainHeader() {
               Ремонт помещений
             </span>
           </div>
-        </div>
-        <div className='flex justify-center'>
-          <Image
-            src='/mini_menu_image.png'
-            alt='Menu background'
-            width={1440}
-            height={344}
-            className='w-full h-auto object-cover'
-          />
         </div>
         <div className='absolute top-[282px] left-[50%] -translate-x-1/2'>
           <img
