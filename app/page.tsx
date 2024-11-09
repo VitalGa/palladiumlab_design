@@ -1,7 +1,5 @@
+import MainHeader from '@/components/main_header/MainHeader';
+
 export default function Home() {
-  return (
-    <main>
-      <h1>Привет, мир!</h1>
-    </main>
-  );
+  return <MainHeader />;
 }

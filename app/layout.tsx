@@ -1,15 +1,21 @@
 import './globals.css';
 import { type ReactNode } from 'react';
+import Portfolio from '@/components/Portfolio';
+import Footer from '@/components/Footer';
 
 export const metadata = {
-  title: 'Мой проект',
-  description: 'Описание моего проекта',
+  title: 'Ремонт и дизайн',
+  description: 'Тестовое задание для PalladiumLab',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang='ru'>
-      <body>{children}</body>
+      <body>
+        {children}
+        <Portfolio />
+        <Footer />
+      </body>
     </html>
   );
 }
